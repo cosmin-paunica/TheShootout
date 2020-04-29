@@ -1,0 +1,11 @@
+﻿  Armor.cpp
+  BulletProofVest.cpp
+D:\Facultate\Anul I\Semestrul 2\Programare orientata pe obiecte\Tema 2\TheShootout\TheShootout\BulletProofVest.cpp(3,79): warning C4305: 'argument': truncation from 'double' to 'float'
+  Revolver.cpp
+  Sniper.cpp
+  Sword.cpp
+  TinChestplate.cpp
+D:\Facultate\Anul I\Semestrul 2\Programare orientata pe obiecte\Tema 2\TheShootout\TheShootout\TinChestplate.cpp(3,72): warning C4305: 'argument': truncation from 'double' to 'float'
+  Weapon.cpp
+  Generating Code...
+  TheShootout.vcxproj -> D:\Facultate\Anul I\Semestrul 2\Programare orientata pe obiecte\Tema 2\TheShootout\Debug\TheShootout.exe
