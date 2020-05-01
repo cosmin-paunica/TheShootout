@@ -105,29 +105,29 @@ void Game::runRound() {
 
 			// Caz 3: daca exista agenti in raza de vizibilitate, dar nu in raza de atac a armei
 			else if (leastDangerous != NULL) {
-				string relativeArea = map.relativeArea(leastDangerous->row, leastDangerous->col, row, col);
+				string areaToMove = map.relativeArea(leastDangerous->row, leastDangerous->col, row, col);
 
 				int distToMove = 0;
-				if (relativeArea == "north")
+				if (areaToMove == "north")
 					for (int k = row - 1; k >= 0 && map[k][col] == NULL
 						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k--)
 						distToMove++;
-				else if (relativeArea == "east")
+				else if (areaToMove == "east")
 					for (int k = col + 1; k < mapSize && map[row][k] == NULL
 						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k++)
 						distToMove++;
-				else if (relativeArea == "south")
+				else if (areaToMove == "south")
 					for (int k = row + 1; k < mapSize && map[k][col] == NULL
 						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k++)
 						distToMove++;
-				else if (relativeArea == "west")
+				else if (areaToMove == "west")
 					for (int k = col - 1; k >= 0 && map[row][k] == NULL
 						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k--)
 						distToMove++;
 
-				map.moveAgent(row, col, relativeArea, distToMove);
+				map.moveAgent(row, col, areaToMove, distToMove);
 				cout << "Agent " << agent->id << " moved " << distToMove << " units "
-					<< relativeArea << endl;
+					<< areaToMove << endl;
 			}
 
 			// Caz 4: daca nu au fost gasiti agenti de atacat
@@ -138,19 +138,19 @@ void Game::runRound() {
 				else {
 					cout << "Agent " << agent->id << " moved " << MOVE_DIST << " units ";
 					if (area == "north") {
-						map.moveAgent(row, col, row + MOVE_DIST, col);
+						map.moveAgent(row, col, "south", MOVE_DIST);
 						cout << "south";
 					}
 					else if (area == "east") {
-						map.moveAgent(row, col, row, col - MOVE_DIST);
+						map.moveAgent(row, col, "west", MOVE_DIST);
 						cout << "west";
 					}
 					else if (area == "south") {
-						map.moveAgent(row, col, row - MOVE_DIST, col);
+						map.moveAgent(row, col, "north", MOVE_DIST);
 						cout << "north";
 					}
 					else if (area == "west") {
-						map.moveAgent(row, agent->col, row, col + MOVE_DIST);
+						map.moveAgent(row, col, "east", col + MOVE_DIST);
 						cout << "east";
 					}
 				}
@@ -180,4 +180,9 @@ void Game::run() {
 		cin >> cont;
 		cout << endl << endl;
 	} while (cont == 1);
+
+	cout << "Results:" << endl << endl;
+	for (Agent* agent : agents) {
+		cout << "Agent " << agent->id << ": " << agent->health << " health" << endl;
+	}
 }
