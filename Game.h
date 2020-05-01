@@ -35,5 +35,5 @@ public:
 
 	// afiseaza starea initiala si gestioneaza rularea mai multor runde,
 	// in functie de inputul utilizatorului
-	void start();
+	void run();
 };
