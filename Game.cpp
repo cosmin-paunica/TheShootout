@@ -35,8 +35,8 @@ void Game::runRound() {
 	for (int k = 0; k < (int)agents.size(); k++) {
 		// fiecare agent din joc face cate o actiune
 		Agent* agent = agents[k];
-		int row = agent->row;
-		int col = agent->col;
+		int row = agent->row;	// row-ul agentului curent
+		int col = agent->col;	// col-ul agentului curent
 
 		// Caz 1: daca arma nu e folosibila, agentul intotdeauna o repara
 		if (!agent->weapon->isUsable()) {
@@ -44,30 +44,8 @@ void Game::runRound() {
 			cout << "Agent " << agent->id << " repaired their weapon" << endl;
 		}
 		else {
-			//bool attacked = false;
-			//for (unsigned row = max(0, (int)(agents[i]->getRow() - VIS_RANGE)); !attacked && row <= min(mapSize - 1, agents[i]->getRow() + VIS_RANGE); row++)
-			//	for (unsigned col = max(0, (int)(agents[i]->getCol() - VIS_RANGE)); !attacked && col <= min(mapSize - 1, agents[i]->getCol() + VIS_RANGE); col++)
-			//		if (agents[i] != map[row][col] && map[row][col] != NULL) {
-			//			attacked = true;
-			//			cout << "Agent " << agents[i]->getId() << " attacked agent " << map[row][col]->getId() << endl;
-			//			agents[i]->attack(*map[row][col]);
-
-			//			if (map[row][col]->getHealth() == 0) {
-			//				cout << "Agent " << map[row][col]->getId() << " died" << endl;
-			//				for (unsigned j = 0; j < agents.size(); j++)
-			//					if (agents[j] == map[row][col]) {
-			//						agents.erase(agents.begin() + j);
-			//						if (j < i)
-			//							i--;	// daca agentul care a murit era pozitionat in vector inaintea celui care a atacat
-			//					}
-			//				delete map[row][col];
-			//				map[row][col] = NULL;
-			//			}
-			//		}
-
-			// leastDangerous = cel mai nepericulos din raza de vedere
-			// mostDangerous = cel mai periculos din raza armei
-			Agent* leastDangerous = NULL, * mostDangerous = NULL;
+			Agent* leastDangerous = NULL;	// cel mai nepericulos din raza de vizibilitate
+			Agent* mostDangerous = NULL;	// cel mai periculos din raza armei
 			float smallestPowerFactor = 10, greatestPowerFactor = 0;
 			
 			for (int i = max(0, row - VIS_RANGE); i <= min(mapSize - 1, row + VIS_RANGE); i++)
@@ -77,7 +55,8 @@ void Game::runRound() {
 							leastDangerous = map[i][j];
 							smallestPowerFactor = map[i][j]->relativePowerFactor(*agent);
 						}
-						if (map[i][j]->isInRange(*agent, agent->weapon->getRange()))
+						
+						if (map.areInRange(row, col, map[i][j]->row, map[i][j]->col, agent->weapon->getRange()))
 							if (mostDangerous == NULL || greatestPowerFactor < map[i][j]->relativePowerFactor(*agent)) {
 								mostDangerous = map[i][j];
 								greatestPowerFactor = map[i][j]->relativePowerFactor(*agent);
@@ -109,20 +88,20 @@ void Game::runRound() {
 
 				int distToMove = 0;
 				if (areaToMove == "north")
-					for (int k = row - 1; k >= 0 && map[k][col] == NULL
-						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k--)
+					for (int k = row - 1; k >= 0 && map[k][col] == NULL && distToMove < MOVE_DIST
+						&& !map.areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k--)
 						distToMove++;
 				else if (areaToMove == "east")
-					for (int k = col + 1; k < mapSize && map[row][k] == NULL
-						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k++)
+					for (int k = col + 1; k < mapSize && map[row][k] == NULL && distToMove < MOVE_DIST
+						&& !map.areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k++)
 						distToMove++;
 				else if (areaToMove == "south")
-					for (int k = row + 1; k < mapSize && map[k][col] == NULL
-						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k++)
+					for (int k = row + 1; k < mapSize && map[k][col] == NULL && distToMove < MOVE_DIST
+						&& !map.areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k++)
 						distToMove++;
 				else if (areaToMove == "west")
-					for (int k = col - 1; k >= 0 && map[row][k] == NULL
-						&& distToMove < MOVE_DIST && !leastDangerous->isInRange(*agent, agent->weapon->getRange()); k--)
+					for (int k = col - 1; k >= 0 && map[row][k] == NULL && distToMove < MOVE_DIST
+						&& !map.areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k--)
 						distToMove++;
 
 				map.moveAgent(row, col, areaToMove, distToMove);
@@ -181,7 +160,7 @@ void Game::run() {
 		cout << endl << endl;
 	} while (cont == 1);
 
-	cout << "Results:" << endl << endl;
+	cout << "End of game!" << endl << endl << "Stats:" << endl << endl;
 	for (Agent* agent : agents) {
 		cout << "Agent " << agent->id << ": " << agent->health << " health" << endl;
 	}

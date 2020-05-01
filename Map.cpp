@@ -34,10 +34,16 @@ string Map::area(int row, int col, int middleSquareRadius) const {
 }
 
 string Map::relativeArea(int rowAg1, int colAg1, int rowAg2, int colAg2) const {
-	int row = (int)rowAg1 - ((int)(rowAg2) - (int)middle());
-	int col = (int)colAg1 - ((int)(colAg2)-(int)middle());
+	int row = rowAg1 - (rowAg2 - middle());
+	int col = colAg1 - (colAg2 - middle());
 
 	return area(row, col, 0);
+}
+
+bool Map::areInRange(int row1, int col1, int row2, int col2, int range) const {
+	bool areInRange = (row2 - range <= row1) && (row1 <= row2 + range)
+					&& (col2 - range <= col1) && (col1 <= col2 + range);
+	return areInRange;
 }
 
 void Map::moveAgent(int row, int col, int newRow, int newCol) {
@@ -68,7 +74,7 @@ void Map::moveAgent(int row, int col, string direction, int distance) {
 	moveAgent(row, col, newRow, newCol);
 }
 
-vector<Agent*>& Map::operator[](int row) {
+vector<Agent*>& Map::operator[](unsigned row) {
 	return agentsMatrix[row];
 }
 

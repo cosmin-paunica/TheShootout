@@ -28,9 +28,6 @@ public:
 
 	// returneaza damage-ul pe care *this i l-ar da unui agent intr-un atac
 	float relativePowerFactor(const Agent&) const;
-
-	// returneaza true daca *this e in raza unui agent
-	bool isInRange(const Agent&, int);
 	
 	void attack(Agent&) const;
 

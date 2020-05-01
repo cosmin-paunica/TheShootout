@@ -48,12 +48,6 @@ float Agent::relativePowerFactor(const Agent& agent) const {
 	return powerFactor;
 }
 
-bool Agent::isInRange(const Agent& agent, int range) {
-	bool isInRange = (agent.row - range <= row) && (row <= agent.row + range)
-					 && (agent.col - range <= col) && (col <= agent.col + range);
-	return isInRange;
-}
-
 void Agent::attack(Agent& agent) const {
 	if (!weapon->isUsable())
 		throw "Agent's weapon is unusable";
