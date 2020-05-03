@@ -142,6 +142,7 @@ void Game::runRound() {
 }
 
 void Game::run() {
+	cout << "---THE SHOOTOUT---" << endl << endl;
 	cout << "Initial configuration of the game:" << endl << endl;
 	for (Agent* agent : agents) {
 		cout << "Agent " << agent->id << ": " << agent->weapon->getType() << ", "
