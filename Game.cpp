@@ -155,8 +155,12 @@ void Game::run() {
 	do {
 		cout << "Round " << ++round << endl << endl;
 		runRound();
-		cout << "Do you wish to run another round? [1 for yes, 0 for no]: ";
-		cin >> cont;
+		do {
+			cout << "Do you wish to run another round? [1 for yes, 0 for no]: ";
+			cin >> cont;
+			if (cont != 0 && cont != 1)
+				cout << "Invalid command" << endl;
+		} while (cont != 0 && cont != 1);
 		cout << endl << endl;
 	} while (cont == 1);
 

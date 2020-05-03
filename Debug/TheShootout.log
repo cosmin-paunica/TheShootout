@@ -1,8 +1,2 @@
-﻿  Agent.cpp
-D:\Facultate\Anul I\Semestrul 2\Programare orientata pe obiecte\Tema 2\TheShootout\TheShootout\Agent.cpp(42,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Game.cpp
-  Map.cpp
-  Sword.cpp
-  main.cpp
-  Generating Code...
+﻿  Game.cpp
   TheShootout.vcxproj -> D:\Facultate\Anul I\Semestrul 2\Programare orientata pe obiecte\Tema 2\TheShootout\Debug\TheShootout.exe
