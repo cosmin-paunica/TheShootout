@@ -16,6 +16,10 @@ Map::~Map() {
 				delete agentsMatrix[i][j];
 }
 
+int Map::getSize() {
+	return size;
+}
+
 int Map::middle() const {
 	return size / 2;
 }

@@ -24,7 +24,6 @@ class Game {
 	Game();
 
 	Map* map;
-	int mapSize;
 	vector<Agent*> agents;
 
 	void createAgent(int, int);

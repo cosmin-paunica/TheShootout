@@ -4,7 +4,6 @@
 // doar ca damage-ul ei scade pe masura ce o folosesc
 // Damage-ul poate scadea pana la 50, cand arma nu mai e folosibila
 
-#include "Agent.h"
 #include "Weapon.h"
 
 class Sword : public Weapon {

@@ -15,6 +15,8 @@ public:
 	Map(int);
 	~Map();
 
+	int getSize();
+
 	// returneaza coordonata aflata la mijlocul hartii
 	int middle() const;
 	

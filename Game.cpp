@@ -2,7 +2,9 @@
 
 Game* Game::instance = NULL;
 
-Game::Game() {}
+Game::Game() {
+	map = NULL;
+}
 
 Game* Game::getInstance() {
 	if (instance == NULL) {
@@ -19,15 +21,14 @@ void Game::createAgent(int row, int col) {
 
 void Game::init(int noOfAgents, int mapSize) {
 	this->map = new Map(mapSize);
-	this->mapSize = mapSize;
 
 	srand((int)time(NULL));
 
 	for (int i = 0; i < noOfAgents; i++) {
 		int row, col;
 		do {
-			row = rand() % mapSize;
-			col = rand() % mapSize;
+			row = rand() % map->getSize();
+			col = rand() % map->getSize();
 		} while ((*map)[row][col] != NULL);
 		createAgent(row, col);
 	}
@@ -55,8 +56,8 @@ void Game::runRound() {
 			Agent* mostDangerous = NULL;	// cel mai periculos din raza armei
 			float smallestPowerFactor = 10, greatestPowerFactor = 0;
 			
-			for (int i = max(0, row - VIS_RANGE); i <= min(mapSize - 1, row + VIS_RANGE); i++)
-				for (int j = max(0, col - VIS_RANGE); j <= min(mapSize - 1, col + VIS_RANGE); j++)
+			for (int i = max(0, row - VIS_RANGE); i <= min(map->getSize() - 1, row + VIS_RANGE); i++)
+				for (int j = max(0, col - VIS_RANGE); j <= min(map->getSize() - 1, col + VIS_RANGE); j++)
 					if ((*map)[i][j] != agent && (*map)[i][j] != NULL) {
 						if (leastDangerous == NULL || smallestPowerFactor > (*map)[i][j]->relativePowerFactor(*agent)) {
 							leastDangerous = (*map)[i][j];
@@ -99,11 +100,11 @@ void Game::runRound() {
 						&& !map->areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k--)
 						distToMove++;
 				else if (areaToMove == "east")
-					for (int k = col + 1; k < mapSize && (*map)[row][k] == NULL && distToMove < MOVE_DIST
+					for (int k = col + 1; k < map->getSize() && (*map)[row][k] == NULL && distToMove < MOVE_DIST
 						&& !map->areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k++)
 						distToMove++;
 				else if (areaToMove == "south")
-					for (int k = row + 1; k < mapSize && (*map)[k][col] == NULL && distToMove < MOVE_DIST
+					for (int k = row + 1; k < map->getSize() && (*map)[k][col] == NULL && distToMove < MOVE_DIST
 						&& !map->areInRange(row, col, leastDangerous->row, leastDangerous->col, agent->weapon->getRange()); k++)
 						distToMove++;
 				else if (areaToMove == "west")

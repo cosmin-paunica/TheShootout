@@ -3,21 +3,13 @@
 int Agent::count = 0;
 
 Agent::Agent(int row, int col) : row(row), col(col), health(10), id(++count) {
+	WeaponFactory wpFact;
 	int weaponType = rand() % 3;
-	if (weaponType == 0)
-		weapon = new Sword();
-	else if (weaponType == 1)
-		weapon = new Revolver();
-	else
-		weapon = new Sniper();
+	weapon = wpFact.makeWeapon(weaponType);
 
+	ArmorFactory armFact;
 	int armorType = rand() % 3;
-	if (armorType == 0)
-		armor = new TinChestplate();
-	else if (armorType == 1)
-		armor = new BulletProofVest();
-	else
-		armor = NULL;
+	armor = armFact.makeArmor(armorType);
 }
 
 Agent::~Agent() {
@@ -39,7 +31,7 @@ void Agent::setCol(int col) {
 }
 
 float Agent::relativePowerFactor(const Agent& agent) const {
-	float powerFactor = weapon->getActualDamage();
+	float powerFactor = (float)weapon->getActualDamage();
 	if (agent.armor != NULL)
 		if (agent.armor->getWeakenedAmmoType() == weapon->getType())
 			powerFactor *= (1 - 2 * agent.armor->getProtection());

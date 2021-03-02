@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Armor.h"
+#include "ArmorFactory.h"
 #include "BulletProofVest.h"
 #include "Revolver.h"
 #include "Sniper.h"
 #include "Sword.h"
 #include "TinChestplate.h"
 #include "Weapon.h"
+#include "WeaponFactory.h"
 #include <algorithm>
 
 using namespace std;
