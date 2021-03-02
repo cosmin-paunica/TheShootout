@@ -12,28 +12,34 @@
 
 #include "Agent.h"
 #include "Map.h"
-#include "utility.h"
+#include <algorithm>
 #include <ctime>
+#include <exception>
 #include <iostream>
 
 using namespace std;
 
 class Game {
-	Map map;
+	static Game* instance;
+	Game();
+
+	Map* map;
 	int mapSize;
 	vector<Agent*> agents;
+
+	void createAgent(int, int);
+	void init(int, int);
 
 	const int VIS_RANGE = 4;	// raza de vizibilitate a agentilor
 	const int MOVE_DIST = 2;	// distanta la care se pot misca agentii
 
 public:
-	Game(int, int);
-	void createAgent(int, int);
+	static Game* getInstance();
 
 	// gestioneaza rularea unei singure runde
 	void runRound();
 
 	// afiseaza starea initiala si gestioneaza rularea mai multor runde,
 	// in functie de inputul utilizatorului
-	void run();
+	void run(int, int);
 };

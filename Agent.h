@@ -6,8 +6,8 @@
 #include "Sniper.h"
 #include "Sword.h"
 #include "TinChestplate.h"
-#include "utility.h"
 #include "Weapon.h"
+#include <algorithm>
 
 using namespace std;
 

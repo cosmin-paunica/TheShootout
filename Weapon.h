@@ -11,6 +11,7 @@ protected:
 
 public:
 	Weapon(int, int, string, string);
+	virtual ~Weapon() {};
 	int getRange() const;
 	string getType();
 	string getAmmoType() const;

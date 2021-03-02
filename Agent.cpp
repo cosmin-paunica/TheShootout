@@ -8,7 +8,7 @@ Agent::Agent(int row, int col) : row(row), col(col), health(10), id(++count) {
 		weapon = new Sword();
 	else if (weaponType == 1)
 		weapon = new Revolver();
-	else if (weaponType == 2)
+	else
 		weapon = new Sniper();
 
 	int armorType = rand() % 3;

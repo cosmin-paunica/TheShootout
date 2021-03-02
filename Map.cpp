@@ -82,7 +82,7 @@ ostream& operator<<(ostream& out, const Map& map) {
 	out << " -";
 	for (int j = 0; j < 3 * map.size; j++)
 		out << "-";
-	out << " " << endl;
+	out << "\n";
 
 	for (int i = 0; i < map.size; i++) {
 		out << "| ";
@@ -96,7 +96,7 @@ ostream& operator<<(ostream& out, const Map& map) {
 					out << map.agentsMatrix[i][j]->getId() << " ";
 				else
 					out << map.agentsMatrix[i][j]->getId();
-		out << "|" << endl;
+		out << "|" << "\n";
 	}
 
 	out << " -";
