@@ -140,7 +140,6 @@
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="Armor.cpp" />
-    <ClCompile Include="ArmorFactory.cpp" />
     <ClCompile Include="BulletProofVest.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -150,12 +149,10 @@
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="TinChestplate.cpp" />
     <ClCompile Include="Weapon.cpp" />
-    <ClCompile Include="WeaponFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Armor.h" />
-    <ClInclude Include="ArmorFactory.h" />
     <ClInclude Include="BulletProofVest.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Map.h" />
@@ -165,7 +162,6 @@
     <ClInclude Include="TinChestplate.h" />
     <ClInclude Include="utility.h" />
     <ClInclude Include="Weapon.h" />
-    <ClInclude Include="WeaponFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

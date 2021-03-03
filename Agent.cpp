@@ -3,13 +3,21 @@
 int Agent::count = 0;
 
 Agent::Agent(int row, int col) : row(row), col(col), health(10), id(++count) {
-	WeaponFactory wpFact;
 	int weaponType = rand() % 3;
-	weapon = wpFact.makeWeapon(weaponType);
+	if (weaponType == 0)
+		weapon = new Sword();
+	else if (weaponType == 1)
+		weapon = new Revolver();
+	else
+		weapon = new Sniper();
 
-	ArmorFactory armFact;
 	int armorType = rand() % 3;
-	armor = armFact.makeArmor(armorType);
+	if (armorType == 0)
+		armor = new BulletProofVest();
+	else if (armorType == 1)
+		armor = new TinChestplate();
+	else
+		armor = NULL;
 }
 
 Agent::~Agent() {
